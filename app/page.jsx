@@ -191,14 +191,14 @@ export default function Page() {
     setCurrent((prev) => Math.min(prev + 1, steps.length - 1));
   }
 
-  const paddingClass =
+  const bottomSpacing =
     step.id === "q1"
-      ? "pb-12"
+      ? 44
       : step.id === "q2" || step.id === "q7"
-      ? "pb-28"
+      ? 38
       : step.id === "q6"
-      ? "pb-24"
-      : "pb-32";
+      ? 42
+      : 50;
 
   const answeredQuestions = steps.slice(0, current).filter((s) => s.type === "question").length;
   const progressRaw =
@@ -238,7 +238,8 @@ export default function Page() {
 
         {step.type !== "result" && (
           <div
-            className={`relative z-10 flex w-full flex-col items-center justify-end gap-2.5 px-4 ${paddingClass} pt-4 floating`}
+            className="relative z-10 flex w-full flex-col items-center justify-end gap-2.5 px-4 pt-4 floating choice-stack"
+            style={{ "--choice-base": `${bottomSpacing}px` }}
           >
             <div className="grid w-full max-w-[340px] grid-cols-2 gap-3">
               {step.type === "question" &&
@@ -256,7 +257,7 @@ export default function Page() {
         )}
 
         {step.type === "result" && (
-          <div className="pointer-events-none fixed inset-x-0 bottom-5 z-20 flex justify-center px-4">
+          <div className="pointer-events-none fixed inset-x-0 bottom-safe z-20 flex justify-center px-4">
             <div className="pointer-events-auto grid w-full max-w-xl grid-cols-2 gap-2.5">
               <button
                 onClick={resetGame}
