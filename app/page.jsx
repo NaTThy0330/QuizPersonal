@@ -116,6 +116,20 @@ export default function Page() {
   const bgImage = step.type === "result" ? `/${winner}.jpg` : step.image;
 
   useEffect(() => {
+    const urls = [
+      ...new Set(
+        steps
+          .filter((s) => s.type === "question" && s.image)
+          .map((s) => s.image)
+      )
+    ];
+    urls.forEach((src) => {
+      const img = new Image();
+      img.src = src;
+    });
+  }, []);
+
+  useEffect(() => {
     if (!sceneRef.current) return;
     gsap.fromTo(
       sceneRef.current,
