@@ -114,6 +114,10 @@ export default function Page() {
 
   const step = steps[current];
   const bgImage = step.type === "result" ? `/${winner}.jpg` : step.image;
+  const isQuestion = step.type === "question";
+  const isResult = step.type === "result";
+  const bgPosition = isResult ? "center 12%" : isQuestion ? "center 26%" : "center center";
+  const bgSize = isResult ? "contain" : isQuestion ? "auto 88%" : "contain";
 
   useEffect(() => {
     const urls = new Set();
@@ -221,7 +225,11 @@ export default function Page() {
       >
         <div
           className="bg"
-          style={{ backgroundImage: `url('${bgImage}')` }}
+          style={{
+            backgroundImage: `url('${bgImage}')`,
+            backgroundPosition: bgPosition,
+            backgroundSize: bgSize
+          }}
         />
         <div className="aurora" />
 

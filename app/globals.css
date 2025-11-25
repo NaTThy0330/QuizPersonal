@@ -15,7 +15,6 @@ body {
   font-family: 'Quicksand', 'Prompt', system-ui, -apple-system, sans-serif;
   overflow: hidden;
   touch-action: manipulation;
-  --nav-buffer: clamp(80px, 15vh, 140px);
 }
 
 .scene {
@@ -77,22 +76,22 @@ body {
 }
 
 .choice-stack {
-  padding-bottom: calc(var(--choice-base, 44px) + var(--nav-buffer));
+  padding-bottom: max(var(--choice-base, 44px), 56px);
 }
 
-@supports (padding-bottom: calc(1px + env(safe-area-inset-bottom))) {
+@supports (padding-bottom: max(1px, 2px)) and (padding-bottom: calc(1px + env(safe-area-inset-bottom))) {
   .choice-stack {
-    padding-bottom: calc(var(--choice-base, 44px) + var(--nav-buffer) + env(safe-area-inset-bottom));
+    padding-bottom: max(calc(var(--choice-base, 44px)), calc(env(safe-area-inset-bottom) + 16px));
   }
 }
 
 .bottom-safe {
-  bottom: calc(20px + var(--nav-buffer) * 0.75);
+  bottom: 18px;
 }
 
-@supports (bottom: calc(1px + env(safe-area-inset-bottom))) {
+@supports (bottom: max(1px, 2px)) and (bottom: calc(1px + env(safe-area-inset-bottom))) {
   .bottom-safe {
-    bottom: calc(20px + var(--nav-buffer) * 0.75 + env(safe-area-inset-bottom));
+    bottom: max(18px, calc(env(safe-area-inset-bottom) + 12px));
   }
 }
 
