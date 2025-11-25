@@ -116,13 +116,11 @@ export default function Page() {
   const bgImage = step.type === "result" ? `/${winner}.jpg` : step.image;
 
   useEffect(() => {
-    const urls = [
-      ...new Set(
-        steps
-          .filter((s) => s.type === "question" && s.image)
-          .map((s) => s.image)
-      )
-    ];
+    const urls = new Set();
+    steps.forEach((s) => {
+      if (s.type === "question" && s.image) urls.add(s.image);
+    });
+    ["/A.jpg", "/B.jpg", "/C.jpg", "/D.jpg"].forEach((u) => urls.add(u));
     urls.forEach((src) => {
       const img = new Image();
       img.src = src;
@@ -143,6 +141,11 @@ export default function Page() {
   }, [current, step]);
 
   function choose(id, evt) {
+    const nextStep = steps[current + 1];
+    if (nextStep?.image) {
+      const img = new Image();
+      img.src = nextStep.image;
+    }
     setScores((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
     const rect = evt?.currentTarget?.getBoundingClientRect();
     if (rect && sparkleCtrl.current) {
