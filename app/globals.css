@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #ffffff;
+  color: #0e0e0e;
+  font-family: 'Quicksand', 'Prompt', system-ui, -apple-system, sans-serif;
+  overflow: hidden;
+  touch-action: manipulation;
+}
+
+.scene {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.scene .bg {
+  position: absolute;
+  inset: 0;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  filter: saturate(1.1);
+}
+
+.aurora {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(50% 60% at var(--aurora-x, 30%) var(--aurora-y, 35%), rgba(255, 214, 102, 0.25), transparent 60%),
+    radial-gradient(40% 50% at 70% 30%, rgba(122, 255, 214, 0.18), transparent 60%),
+    conic-gradient(from 120deg at 50% 50%, rgba(255, 255, 255, 0.06), rgba(255, 200, 255, 0.1), rgba(120, 200, 255, 0.05), rgba(255, 255, 255, 0.08));
+  mix-blend-mode: screen;
+  opacity: 0.9;
+  pointer-events: none;
+}
+
+.grain {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.08;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'%3E%3C/feTurbulence%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.45'%3E%3C/rect%3E%3C/svg%3E");
+}
+
+.sparkle-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  mix-blend-mode: screen;
+}
+
+.trail-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 3;
+  mix-blend-mode: screen;
+}
+
+.btn-shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shine::before {
+  content: "";
+  position: absolute;
+  inset: -20% -60%;
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.65) 50%, transparent 100%);
+  transform: translateX(-120%);
+  animation: shine 4.5s ease-in-out infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.btn-shine::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+@keyframes shine {
+  0% { transform: translateX(-120%); }
+  45% { transform: translateX(120%); }
+  100% { transform: translateX(120%); }
+}
